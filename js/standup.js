@@ -52,7 +52,8 @@ new Vue({
         },
         loading: false,
         goodday: false,
-        timer: 0
+        timer: 0,
+        playa: null
     },
     methods: {
         nextProject: function() {
@@ -61,6 +62,7 @@ new Vue({
                 return;
             }
 
+            this._stopMusic();
             this.currentIndex++;
 
             var that = this;
@@ -73,6 +75,7 @@ new Vue({
             if (this.currentIndex <= 0) {
                 return;
             }
+            that._stopMusic();
             this.currentProject = this.projects[--this.currentIndex];
             this._restartTimer();
         },
@@ -91,8 +94,19 @@ new Vue({
             var that = this;
             window.setInterval(function() {
                 that.timer++;
+
+                if (that.timer === 5) {
+                    that._startMusic();
+                }
             }, 1000);
-        }
+        },
+        _startMusic: function () {
+            this.playa.play();
+        },
+        _stopMusic: function () {
+            this.playa.pause();
+            this.playa.currentTime = 0;
+        },
     },
     computed: {
         incomplete: function() {
@@ -118,5 +132,6 @@ new Vue({
         this.projects = _.shuffle(this.projects);
         this.projects.push(this.last);
         this._startTimer();
+        this.playa = $('#playa')[0];
     }
 });
