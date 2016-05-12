@@ -53,7 +53,8 @@ new Vue({
         loading: false,
         goodday: false,
         timer: 0,
-        playa: null
+        playa: null,
+        timeLimit: 50
     },
     methods: {
         nextProject: function() {
@@ -64,6 +65,9 @@ new Vue({
 
             this._stopMusic();
             this.currentIndex++;
+            if (this.currentIndex == 0) {
+                this._startTimer();
+            }
 
             var that = this;
             this._showLoader(1000, function() {
@@ -95,7 +99,7 @@ new Vue({
             window.setInterval(function() {
                 that.timer++;
 
-                if (that.timer === 5) {
+                if (that.timer === this.timeLimit) {
                     that._startMusic();
                 }
             }, 1000);
@@ -131,7 +135,6 @@ new Vue({
     ready: function() {
         this.projects = _.shuffle(this.projects);
         this.projects.push(this.last);
-        this._startTimer();
         this.playa = $('#playa')[0];
     }
 });
