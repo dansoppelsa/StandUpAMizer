@@ -14,7 +14,7 @@
 <div class="container-fluid" id="standup">
     <div v-show="! goodday">
         <div class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-12">
                 <p class="alert alert-default">
                     <strong>{{ incomplete.length }}</strong> projects left.
                 </p>
@@ -30,8 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2">
-
+            <div id="completed-list">
                 <div class="panel panel-default" v-show="complete.length != 0">
                     <div class="panel-heading">
                         Completed
@@ -45,7 +44,6 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="row" id="controls">

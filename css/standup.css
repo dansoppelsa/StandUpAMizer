@@ -72,3 +72,10 @@ h1 {
     bottom: 10px;
     left: 10px;
 }
+
+#completed-list {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    min-width: 300px;
+}
