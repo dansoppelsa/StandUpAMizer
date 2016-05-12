@@ -79,3 +79,10 @@ h1 {
     right: 10px;
     min-width: 300px;
 }
+
+#timer {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    min-width: 300px;
+}

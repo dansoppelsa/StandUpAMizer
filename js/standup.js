@@ -51,7 +51,8 @@ new Vue({
             url: 'http://vehikl.com/assets/style-guide/vehikl_avatar.jpg'
         },
         loading: false,
-        goodday: false
+        goodday: false,
+        timer: 0
     },
     methods: {
         nextProject: function() {
@@ -65,7 +66,7 @@ new Vue({
             var that = this;
             this._showLoader(1000, function() {
                 that.currentProject = that.projects[that.currentIndex];
-                console.log(that.incomplete, that.complete);
+                that._restartTimer();
             })
         },
         lastProject: function() {
@@ -73,6 +74,7 @@ new Vue({
                 return;
             }
             this.currentProject = this.projects[--this.currentIndex];
+            this._restartTimer();
         },
         _showLoader: function (duration, complete) {
             this.loading = true;
@@ -81,6 +83,15 @@ new Vue({
                 that.loading = false;
                 complete();
             }, duration);
+        },
+        _restartTimer: function () {
+            this.timer = 0;
+        },
+        _startTimer: function() {
+            var that = this;
+            window.setInterval(function() {
+                that.timer++;
+            }, 1000);
         }
     },
     computed: {
@@ -96,10 +107,16 @@ new Vue({
         },
         allDone: function() {
             return this.incomplete.length === 0;
+        },
+        timerDisplay: function() {
+            return (new Date).clearTime()
+                .addSeconds(this.timer)
+                .toString('mm:ss');
         }
     },
     ready: function() {
         this.projects = _.shuffle(this.projects);
         this.projects.push(this.last);
+        this._startTimer();
     }
 });
