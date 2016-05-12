@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StandUp</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/standup.css">
+</head>
+<body>
+<div class="container-fluid" id="standup">
+    <div v-show="! goodday">
+        <div class="row">
+            <div class="col-sm-10">
+                <p class="alert alert-default">
+                    <strong>{{ incomplete.length }}</strong> projects left.
+                </p>
+                <div id="loader" v-show="loading">
+                    <img src="http://vehikl.com/assets/style-guide/vehikl_avatar.jpg" alt="Vehikl" />
+                </div>
+                <div id="projects" v-show="! loading">
+                    <div v-for="project in projects">
+                        <div v-show="currentProject.name == project.name" transition="getit" class="animated project">
+                            <img v-bind:src="project.url" alt="{{ project.name }}" />
+                            <h3>{{ project.name }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+
+                <div class="panel panel-default" v-show="complete.length != 0">
+                    <div class="panel-heading">
+                        Completed
+                    </div>
+                    <div class="panel-body">
+
+                        <ul class="list-group">
+                            <li v-for="project in complete" class="list-group-item">
+                                <h4>{{ project.name }}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row" id="controls">
+            <div class="col-sm-12">
+                <button class="btn btn-default btn-lg" v-on:click="lastProject()">
+                    &lt; Last
+                </button>
+                <button class="btn btn-primary btn-lg" v-on:click="nextProject()">
+                    <i class="glyphicon glyphicon-play"></i> Next
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" v-show="goodday">
+        <div class="col-sm-12">
+            <div class="text-center">
+                <img src="http://quotesideas.com/wp-content/uploads/2015/07/Good-morning-with-have-a-nice-day-quote.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
+<script src="/js/standup.js"></script>
+</body>
+</html>

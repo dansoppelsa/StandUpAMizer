@@ -1,0 +1,74 @@
+body {
+
+}
+
+#projects {
+    height: 600px;
+}
+
+h1 {
+    color: #DD5F13;
+}
+
+#loader {
+    padding: 100px 0;
+    text-align: center;
+    height: 600px;
+}
+#loader img {
+    width: 180px;
+    animation: rotating 0.6s linear infinite;
+}
+
+#projects, #completed {
+    /*display: none;*/
+}
+
+.project {
+    width: 100%;
+    text-align: center;
+    padding: 100px 0;
+    animation-duration: 1.3s;
+}
+
+.project img {
+    max-width: 400px;
+}
+
+.project h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 7em;
+    padding: 30px 0;
+}
+
+#next {
+    text-align: center;
+    padding: 100px 0;
+}
+
+#next button {
+
+}
+
+.hide {
+    display: none;
+}
+
+@keyframes rotating {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    animation: rotating 2s linear infinite;
+}
+
+#controls {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
