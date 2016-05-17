@@ -42,6 +42,10 @@ new Vue({
             {
                 name: 'Pairing App',
                 url: 'https://boldanddetermined.com/wp-content/uploads/2012/03/Good-Handshake.jpg'
+            },
+            {
+                name: 'We Work',
+                url: 'http://berkeleystartupcluster.com/wp-content/uploads/2014/11/wework-logo-1.png'
             }
         ],
         currentProject: null,
@@ -54,7 +58,8 @@ new Vue({
         goodday: false,
         timer: 0,
         playa: null,
-        timeLimit: 50
+        timeLimit: 60,
+        initialVolume: 0.2
     },
     methods: {
         nextProject: function() {
@@ -64,6 +69,7 @@ new Vue({
             }
 
             this._stopMusic();
+
             this.currentIndex++;
             if (this.currentIndex == 0) {
                 this._startTimer();
@@ -99,8 +105,14 @@ new Vue({
             window.setInterval(function() {
                 that.timer++;
 
-                if (that.timer === this.timeLimit) {
+                if (that.timer === that.timeLimit) {
                     that._startMusic();
+                }
+
+                if (that.timer >= that.timeLimit && that.playa.volume < 1) {
+                    var newVolume = that.playa.volume + 0.05;
+                    newVolume = newVolume > 1 ? 1 : newVolume;
+                    that.playa.volume = newVolume;
                 }
             }, 1000);
         },
@@ -110,7 +122,11 @@ new Vue({
         _stopMusic: function () {
             this.playa.pause();
             this.playa.currentTime = 0;
+            this.playa.volume = this.initialVolume;
         },
+        _resetVolume: function() {
+            this.playa.volume = this.initialVolume;
+        }
     },
     computed: {
         incomplete: function() {
@@ -135,6 +151,7 @@ new Vue({
     ready: function() {
         this.projects = _.shuffle(this.projects);
         this.projects.push(this.last);
-        this.playa = $('#playa')[0];
+        this.playa = document.getElementById('playa');
+        this._resetVolume();
     }
 });
