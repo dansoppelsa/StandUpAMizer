@@ -25,7 +25,8 @@ new Vue({
             },
             {
                 name: 'Clearitie',
-                url: 'https://clearitie.com/wp-content/uploads/2016/03/clearitie-200x200.png'
+                url: 'https://clearitie.com/wp-content/uploads/2016/03/clearitie-200x200.png',
+                phonetic: 'clarity'
             },
             {
                 name: 'Fongo Works',
@@ -40,8 +41,8 @@ new Vue({
                 url: 'http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg'
             },
             {
-                name: 'Pairing App',
-                url: 'https://boldanddetermined.com/wp-content/uploads/2012/03/Good-Handshake.jpg'
+                name: 'Co Pilot',
+                url: 'http://copilotmobileapp.com/images/logo_black.png'
             },
             {
                 name: 'We Work',
@@ -52,19 +53,22 @@ new Vue({
         currentIndex: -1,
         last: {
             name: 'Vehikl',
-            url: 'http://vehikl.com/assets/style-guide/vehikl_avatar.jpg'
+            url: 'http://vehikl.com/assets/style-guide/vehikl_avatar.jpg',
+            phonetic: 'Vehicle'
         },
         loading: false,
         goodday: false,
         timer: 0,
         playa: null,
         timeLimit: 60,
-        initialVolume: 0.2
+        initialVolume: 0.2,
+        voices: null
     },
     methods: {
         nextProject: function() {
             if (this.allDone) {
                 this.goodday = true;
+                this._say('Do what you gotta do today, Fuck wit it.');
                 return;
             }
 
@@ -78,6 +82,10 @@ new Vue({
             var that = this;
             this._showLoader(1000, function() {
                 that.currentProject = that.projects[that.currentIndex];
+                var say = that.currentProject.phonetic != undefined ?
+                    that.currentProject.phonetic :
+                    that.currentProject.name;
+                that._say(say);
                 that._restartTimer();
             })
         },
@@ -126,6 +134,23 @@ new Vue({
         },
         _resetVolume: function() {
             this.playa.volume = this.initialVolume;
+        },
+        _say: function(string) {
+            var utterance = new SpeechSynthesisUtterance();
+            utterance.text = string;
+            utterance.lang = "en-GB";
+            utterance.rate = 0.8;
+            utterance.volume = 1.0;
+            utterance.voice = this.voices[0];
+            speechSynthesis.speak(utterance);
+        },
+        _getVoices: function() {
+            var that = this;
+            speechSynthesis.onvoiceschanged = function () {
+                that.voices = _.filter(speechSynthesis.getVoices(), function(voice) {
+                    return voice.name == 'Google US English';
+                });
+            };
         }
     },
     computed: {
@@ -153,5 +178,6 @@ new Vue({
         this.projects.push(this.last);
         this.playa = document.getElementById('playa');
         this._resetVolume();
+        this._getVoices();
     }
 });
