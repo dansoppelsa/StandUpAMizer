@@ -186,6 +186,10 @@ new Vue({
                         break;
 
                     case 32:
+                        if (document.activeElement.id == 'next' || document.activeElement.id == 'last') {
+                            return;
+                        }
+                        
                         that.nextProject();
                         break;
                 }
