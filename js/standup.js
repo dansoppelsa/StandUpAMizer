@@ -80,7 +80,7 @@ new Vue({
             }
 
             var that = this;
-            this._showLoader(1000, function() {
+            this._showLoader(2300, function() {
                 that.currentProject = that.projects[that.currentIndex];
                 var say = that.currentProject.phonetic != undefined ?
                     that.currentProject.phonetic :
@@ -93,11 +93,12 @@ new Vue({
             if (this.currentIndex <= 0) {
                 return;
             }
-            that._stopMusic();
+            this._stopMusic();
             this.currentProject = this.projects[--this.currentIndex];
             this._restartTimer();
         },
         _showLoader: function (duration, complete) {
+            this._drumroll();
             this.loading = true;
             var that = this;
             window.setTimeout(function() {
@@ -151,6 +152,10 @@ new Vue({
                     return voice.name == 'Google US English';
                 });
             };
+        },
+        _drumroll: function () {
+            var drumroll = document.getElementById('drumroll');
+            drumroll.play();
         }
     },
     computed: {
