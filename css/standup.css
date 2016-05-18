@@ -127,3 +127,15 @@ audio {
     font-weight: bold;
     font-size: 1.1em;
 }
+
+button#btn-start {
+    font-size: 3em;
+    position: relative;
+    top: 30px;
+}
+
+button#btn-start i {
+    position: relative;
+    top: 5px;
+    font-size: 1em;
+}

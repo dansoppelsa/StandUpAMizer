@@ -17,7 +17,7 @@
 <div class="container-fluid" id="standup">
     <div v-show="! goodday">
 
-        <div id="timer">
+        <div id="timer" v-show="currentIndex != -1">
             <h3 v-bind:class="{ 'bold': timesUp, 'red': timesUp }">{{ timerDisplay }}</h3>
         </div>
 
@@ -39,6 +39,10 @@
                 </div>
                 <div id="app-title" v-show="currentIndex == -1">
                     <h1 class="title"><span>StandUp</span>AMizer</h1>
+
+                    <button id="btn-start" class="btn btn-success btn-lg" v-on:click="nextProject()">
+                        <i class="material-icons">play_arrow</i> Start
+                    </button>
                 </div>
             </div>
             <div id="completed-list">
@@ -57,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="controls">
+        <div class="row" id="controls" v-show="currentIndex != -1">
             <div class="col-sm-12">
                 <button class="btn btn-default btn-lg" v-on:click="lastProject()">
                     &lt; Last

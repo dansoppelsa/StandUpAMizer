@@ -26,7 +26,7 @@ new Vue({
             {
                 name: 'Clearitie',
                 url: 'https://clearitie.com/wp-content/uploads/2016/03/clearitie-200x200.png',
-                phonetic: 'clarity'
+                phonetic: 'clarity,,,,,,,I bet it\'s going well!'
             },
             {
                 name: 'Fongo Works',
