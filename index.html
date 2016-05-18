@@ -63,10 +63,10 @@
         </div>
         <div class="row" id="controls" v-show="currentIndex != -1">
             <div class="col-sm-12">
-                <button class="btn btn-default btn-lg" v-on:click="lastProject()">
+                <button class="btn btn-default btn-lg" v-bind:disabled="currentIndex <= 0" v-on:click="lastProject()">
                     &lt; Last
                 </button>
-                <button class="btn btn-primary btn-lg" v-on:click="nextProject()">
+                <button class="btn btn-primary btn-lg" id="next" v-on:click="nextProject()">
                     <i class="glyphicon glyphicon-play"></i> Next
                 </button>
 

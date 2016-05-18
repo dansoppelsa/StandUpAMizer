@@ -88,6 +88,8 @@ new Vue({
                     that.currentProject.name;
                 that._say(say);
                 that._startTimer();
+
+                document.getElementById('next').focus();
             })
         },
         lastProject: function() {
