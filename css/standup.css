@@ -87,6 +87,11 @@ h1 {
     min-width: 300px;
 }
 
+#timer h3 {
+    font-family: 'Fira Mono', 'sans-serif';
+    font-size: 3em;
+}
+
 audio {
     display: none;
 }

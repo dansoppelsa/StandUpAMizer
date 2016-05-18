@@ -58,7 +58,8 @@ new Vue({
         },
         loading: false,
         goodday: false,
-        timer: 0,
+        time: 0,
+        timerId: null,
         playa: null,
         timeLimit: 60,
         initialVolume: 0.2,
@@ -74,11 +75,9 @@ new Vue({
             }
 
             this._stopMusic();
+            this._stopTimer();
 
             this.currentIndex++;
-            if (this.currentIndex == 0) {
-                this._startTimer();
-            }
 
             var that = this;
             this._showLoader(2300, function() {
@@ -87,7 +86,7 @@ new Vue({
                     that.currentProject.phonetic :
                     that.currentProject.name;
                 that._say(say);
-                that._restartTimer();
+                that._startTimer();
             })
         },
         lastProject: function() {
@@ -96,7 +95,7 @@ new Vue({
             }
             this._stopMusic();
             this.currentProject = this.projects[--this.currentIndex];
-            this._restartTimer();
+            this._startTimer();
         },
         mute: function () {
             this._stopMusic();
@@ -110,19 +109,25 @@ new Vue({
                 complete();
             }, duration);
         },
-        _restartTimer: function () {
-            this.timer = 0;
+        _stopTimer: function () {
+            if (! this.timerId) {
+                return;
+            }
+
+            window.clearInterval(this.timerId);
+            this.timerId = null;
+            this.time = 0;
         },
         _startTimer: function() {
             var that = this;
-            window.setInterval(function() {
-                that.timer++;
+            this.timerId = window.setInterval(function() {
+                that.time++;
 
-                if (that.timer === that.timeLimit) {
+                if (that.time === that.timeLimit) {
                     that._startMusic();
                 }
 
-                if (that.timer >= that.timeLimit && that.playa.volume < 1) {
+                if (that.time >= that.timeLimit && that.playa.volume < 1) {
                     var newVolume = that.playa.volume + 0.05;
                     newVolume = newVolume > 1 ? 1 : newVolume;
                     that.playa.volume = newVolume;
@@ -180,7 +185,7 @@ new Vue({
         },
         timerDisplay: function() {
             return (new Date).clearTime()
-                .addSeconds(this.timer)
+                .addSeconds(this.time)
                 .toString('mm:ss');
         }
     },
