@@ -106,3 +106,24 @@ audio {
 .red {
     color: red;
 }
+
+.title {
+    font-family: 'Courgette', cursive;
+}
+
+#app-title {
+    text-align: center;
+    padding: 100px 0;
+}
+
+#app-title h1 {
+    color: red;
+    font-weight: normal;
+    font-size: 8em;
+    transform: rotate(-6deg);
+}
+
+#app-title h1 span {
+    font-weight: bold;
+    font-size: 1.1em;
+}

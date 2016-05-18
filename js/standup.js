@@ -64,7 +64,8 @@ new Vue({
         timeLimit: 60,
         initialVolume: 0.2,
         voices: null,
-        playing: false
+        playing: false,
+        drumroll: null
     },
     methods: {
         nextProject: function() {
@@ -80,7 +81,7 @@ new Vue({
             this.currentIndex++;
 
             var that = this;
-            this._showLoader(2300, function() {
+            this._showLoader(1500, function() {
                 that.currentProject = that.projects[that.currentIndex];
                 var say = that.currentProject.phonetic != undefined ?
                     that.currentProject.phonetic :
@@ -169,8 +170,7 @@ new Vue({
             };
         },
         _drumroll: function () {
-            var drumroll = document.getElementById('drumroll');
-            drumroll.play();
+            this.drumroll.play();
         }
     },
     computed: {
@@ -200,6 +200,7 @@ new Vue({
         this.projects = _.shuffle(this.projects);
         this.projects.push(this.last);
         this.playa = document.getElementById('playa');
+        this.drumroll = document.getElementById('drumroll');
         this._resetVolume();
         this._getVoices();
     }

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/standup.css">
 </head>
@@ -28,13 +29,16 @@
                 <div id="loader" v-show="loading">
                     <img src="http://vehikl.com/assets/style-guide/vehikl_avatar.jpg" alt="Vehikl" />
                 </div>
-                <div id="projects" v-show="! loading">
+                <div id="projects" v-show="! loading && currentIndex >= 0">
                     <div v-for="project in projects">
                         <div v-show="currentProject.name == project.name" transition="getit" class="animated project">
                             <img v-bind:src="project.url" alt="{{ project.name }}" />
                             <h3>{{ project.name }}</h3>
                         </div>
                     </div>
+                </div>
+                <div id="app-title" v-show="currentIndex == -1">
+                    <h1 class="title"><span>StandUp</span>AMizer</h1>
                 </div>
             </div>
             <div id="completed-list">
@@ -72,7 +76,7 @@
     <div class="row" v-show="goodday">
         <div class="col-sm-12">
             <div class="text-center">
-                <img src="http://quotesideas.com/wp-content/uploads/2015/07/Good-morning-with-have-a-nice-day-quote.jpg" alt="">
+                <img src="https://i.ytimg.com/vi/2Kk-E3acGSM/maxresdefault.jpg" style="max-width: 100%;" alt="">
             </div>
         </div>
     </div>
