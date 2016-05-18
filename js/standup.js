@@ -62,7 +62,8 @@ new Vue({
         playa: null,
         timeLimit: 60,
         initialVolume: 0.2,
-        voices: null
+        voices: null,
+        playing: false
     },
     methods: {
         nextProject: function() {
@@ -97,6 +98,9 @@ new Vue({
             this.currentProject = this.projects[--this.currentIndex];
             this._restartTimer();
         },
+        mute: function () {
+            this._stopMusic();
+        },
         _showLoader: function (duration, complete) {
             this._drumroll();
             this.loading = true;
@@ -127,11 +131,13 @@ new Vue({
         },
         _startMusic: function () {
             this.playa.play();
+            this.playing = true;
         },
         _stopMusic: function () {
             this.playa.pause();
             this.playa.currentTime = 0;
             this.playa.volume = this.initialVolume;
+            this.playing = false;
         },
         _resetVolume: function() {
             this.playa.volume = this.initialVolume;

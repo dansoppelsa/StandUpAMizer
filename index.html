@@ -8,6 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="/css/standup.css">
 </head>
 <body>
@@ -58,6 +59,11 @@
                 </button>
                 <button class="btn btn-primary btn-lg" v-on:click="nextProject()">
                     <i class="glyphicon glyphicon-play"></i> Next
+                </button>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-default btn-sm" v-on:click="mute()" v-show="playing">
+                    <i class="material-icons">volume_mute</i>
                 </button>
             </div>
         </div>
