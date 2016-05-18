@@ -5,7 +5,7 @@ Vue.transition('getit', {
 
 Vue.transition('show-card', {
     enterClass: 'flipInX',
-    leaveClass: 'hide'
+    leaveClass: 'flipOutX'
 });
 
 new Vue({
@@ -225,7 +225,7 @@ new Vue({
         }
     },
     ready: function() {
-        this.projects = _.shuffle(this.projects);
+        this.projects = _.shuffle(_.shuffle(this.projects));
         this.projects.push(this.last);
         this.playa = document.getElementById('playa');
         this.drumroll = document.getElementById('drumroll');
