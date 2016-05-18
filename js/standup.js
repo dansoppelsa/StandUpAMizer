@@ -173,6 +173,23 @@ new Vue({
         },
         _drumroll: function () {
             this.drumroll.play();
+        },
+        _setKeyListeners: function () {
+            var that = this;
+            document.onkeypress = function (e) {
+                e = e || window.event;
+
+                switch (e.keyCode) {
+                    case 77:
+                    case 109:
+                        that._stopMusic();
+                        break;
+
+                    case 32:
+                        that.nextProject();
+                        break;
+                }
+            };
         }
     },
     computed: {
@@ -205,6 +222,7 @@ new Vue({
         this.drumroll = document.getElementById('drumroll');
         this._resetVolume();
         this._getVoices();
+        this._setKeyListeners();
         document.getElementById('btn-start').focus();
     }
 });
