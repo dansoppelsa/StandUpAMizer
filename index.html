@@ -46,14 +46,14 @@
                 </div>
             </div>
             <div id="completed-list">
-                <div class="panel panel-default" v-show="complete.length != 0">
+                <div class="panel panel-default" v-show="currentIndex >= 1">
                     <div class="panel-heading">
                         Completed
                     </div>
                     <div class="panel-body">
 
                         <ul class="list-group">
-                            <li v-for="project in complete" class="list-group-item">
+                            <li v-for="project in projects" v-show="$index <= currentIndex - 1" transition="show-card" class="animated list-group-item">
                                 <h4>{{ project.name }}</h4>
                             </li>
                         </ul>

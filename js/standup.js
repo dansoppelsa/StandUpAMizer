@@ -3,6 +3,11 @@ Vue.transition('getit', {
     leaveClass: 'hide'
 });
 
+Vue.transition('show-card', {
+    enterClass: 'flipInX',
+    leaveClass: 'hide'
+});
+
 new Vue({
     el: '#standup',
     data: {
