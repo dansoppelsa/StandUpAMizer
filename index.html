@@ -17,7 +17,7 @@
     <div v-show="! goodday">
 
         <div id="timer">
-            <h3>{{ timerDisplay }}</h3>
+            <h3 v-bind:class="{ 'bold': timesUp, 'red': timesUp }">{{ timerDisplay }}</h3>
         </div>
 
         <div class="row">

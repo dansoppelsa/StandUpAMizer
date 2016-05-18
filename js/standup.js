@@ -94,8 +94,8 @@ new Vue({
                 return;
             }
             this._stopMusic();
+            this._restartTimer();
             this.currentProject = this.projects[--this.currentIndex];
-            this._startTimer();
         },
         mute: function () {
             this._stopMusic();
@@ -133,6 +133,10 @@ new Vue({
                     that.playa.volume = newVolume;
                 }
             }, 1000);
+        },
+        _restartTimer: function () {
+            this._stopTimer();
+            this._startTimer();
         },
         _startMusic: function () {
             this.playa.play();
@@ -187,6 +191,9 @@ new Vue({
             return (new Date).clearTime()
                 .addSeconds(this.time)
                 .toString('mm:ss');
+        },
+        timesUp: function () {
+            return this.time >= this.timeLimit;
         }
     },
     ready: function() {
