@@ -205,5 +205,6 @@ new Vue({
         this.drumroll = document.getElementById('drumroll');
         this._resetVolume();
         this._getVoices();
+        document.getElementById('btn-start').focus();
     }
 });
