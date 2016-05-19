@@ -71,7 +71,7 @@ new Vue({
         timerId: null,
         playa: null,
         timeLimit: 45,
-        initialVolume: 0.2,
+        initialVolume: 0.0,
         voices: null,
         playing: false,
         drumroll: null
@@ -138,9 +138,8 @@ new Vue({
                     that._startMusic();
                 }
 
-                if (that.time >= that.currentTimeLimit && that.playa.volume < 1) {
-                    var newVolume = that.playa.volume + 0.05;
-                    that.playa.volume = newVolume > 1 ? 1 : newVolume;
+                if (that._shouldTurnUpVolume()) {
+                    that._turnUpVolume(0.05);
                 }
             }, 1000);
         },
@@ -201,6 +200,13 @@ new Vue({
                         break;
                 }
             };
+        },
+        _shouldTurnUpVolume: function () {
+            return this.timesUp && this.playa.volume < 1 && (this.time % 3 == 0);
+        },
+        _turnUpVolume: function (amount) {
+            var newVolume = this.playa.volume + amount;
+            this.playa.volume = newVolume > 1 ? 1 : newVolume;
         }
     },
     computed: {
