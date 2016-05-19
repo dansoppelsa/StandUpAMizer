@@ -22,16 +22,18 @@ new Vue({
             },
             {
                 name: 'Igloo',
-                url: 'http://www.ocgc.gov.on.ca/images/content/userfiles/Igloo-Logo-620x143.jpg'
+                url: 'http://www.ocgc.gov.on.ca/images/content/userfiles/Igloo-Logo-620x143.jpg',
+                extras: 1
             },
             {
                 name: 'GB Metrics',
-                url: 'http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg'
+                url: 'http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg',
+                extras: 1
             },
             {
                 name: 'Clearitie',
                 url: 'https://clearitie.com/wp-content/uploads/2016/03/clearitie-200x200.png',
-                phonetic: 'clarity,,,,,,,I bet it\'s going well!'
+                phonetic: 'clarity'
             },
             {
                 name: 'Fongo Works',
@@ -47,11 +49,13 @@ new Vue({
             },
             {
                 name: 'Co Pilot',
-                url: 'http://copilotmobileapp.com/images/logo_black.png'
+                url: 'http://copilotmobileapp.com/images/logo_black.png',
+                extras: 1
             },
             {
                 name: 'We Work',
-                url: 'http://berkeleystartupcluster.com/wp-content/uploads/2014/11/wework-logo-1.png'
+                url: 'http://berkeleystartupcluster.com/wp-content/uploads/2014/11/wework-logo-1.png',
+                extras: 1
             }
         ],
         currentProject: null,
@@ -66,7 +70,7 @@ new Vue({
         time: 0,
         timerId: null,
         playa: null,
-        timeLimit: 60,
+        timeLimit: 45,
         initialVolume: 0.2,
         voices: null,
         playing: false,
@@ -82,7 +86,6 @@ new Vue({
 
             this._stopMusic();
             this._stopTimer();
-
             this.currentIndex++;
 
             var that = this;
@@ -131,14 +134,13 @@ new Vue({
             this.timerId = window.setInterval(function() {
                 that.time++;
 
-                if (that.time === that.timeLimit) {
+                if (that.time === that.currentTimeLimit) {
                     that._startMusic();
                 }
 
-                if (that.time >= that.timeLimit && that.playa.volume < 1) {
+                if (that.time >= that.currentTimeLimit && that.playa.volume < 1) {
                     var newVolume = that.playa.volume + 0.05;
-                    newVolume = newVolume > 1 ? 1 : newVolume;
-                    that.playa.volume = newVolume;
+                    that.playa.volume = newVolume > 1 ? 1 : newVolume;
                 }
             }, 1000);
         },
@@ -221,7 +223,12 @@ new Vue({
                 .toString('mm:ss');
         },
         timesUp: function () {
-            return this.time >= this.timeLimit;
+            return this.time >= this.currentTimeLimit;
+        },
+        currentTimeLimit: function () {
+            return this.currentProject.extras == undefined ?
+                this.timeLimit :
+                this.timeLimit + (this.currentProject.extras * 30);
         }
     },
     ready: function() {
