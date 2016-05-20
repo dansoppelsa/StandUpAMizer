@@ -96,8 +96,6 @@ new Vue({
                     that.currentProject.name;
                 that._say(say);
                 that._startTimer();
-
-                document.getElementById('next').focus();
             })
         },
         lastProject: function() {
@@ -186,6 +184,11 @@ new Vue({
                 e = e || window.event;
 
                 switch (e.keyCode) {
+                    case 76:
+                    case 108:
+                        that.lastProject();
+                        break;
+
                     case 77:
                     case 109:
                         that._stopMusic();
@@ -232,6 +235,10 @@ new Vue({
             return this.time >= this.currentTimeLimit;
         },
         currentTimeLimit: function () {
+            if (this.currentProject == undefined || this.currentProject == null) {
+                return;
+            }
+            
             return this.currentProject.extras == undefined ?
                 this.timeLimit :
                 this.timeLimit + (this.currentProject.extras * 30);
@@ -245,6 +252,5 @@ new Vue({
         this._resetVolume();
         this._getVoices();
         this._setKeyListeners();
-        document.getElementById('btn-start').focus();
     }
 });

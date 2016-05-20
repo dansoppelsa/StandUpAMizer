@@ -31,7 +31,7 @@
                 </div>
                 <div id="projects" v-show="! loading && currentIndex >= 0">
                     <div v-for="project in projects">
-                        <div v-show="currentProject.name == project.name" transition="getit" class="animated project">
+                        <div v-show="currentIndex >= 0 && currentProject != undefined && currentProject.name == project.name" transition="getit" class="animated project">
                             <img v-bind:src="project.url" alt="{{ project.name }}" />
                             <h3>{{ project.name }}</h3>
                         </div>
@@ -63,12 +63,12 @@
         </div>
         <div class="row" id="controls" v-show="currentIndex != -1">
             <div class="col-sm-12">
-                <button class="btn btn-default btn-lg" id="last" v-bind:disabled="currentIndex <= 0" v-on:click="lastProject()">
-                    &lt; Last
-                </button>
-                <button class="btn btn-primary btn-lg" id="next" v-on:click="nextProject()">
-                    <i class="glyphicon glyphicon-play"></i> Next
-                </button>
+                <!--<button class="btn btn-default btn-lg" id="last" v-bind:disabled="currentIndex <= 0" v-on:click="lastProject()">-->
+                    <!--&lt; Last-->
+                <!--</button>-->
+                <!--<button class="btn btn-primary btn-lg" id="next" v-on:click="nextProject()">-->
+                    <!--<i class="glyphicon glyphicon-play"></i> Next-->
+                <!--</button>-->
 
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-default btn-sm" v-on:click="mute()" v-show="playing">
