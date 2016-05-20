@@ -78,6 +78,10 @@ new Vue({
     },
     methods: {
         nextProject: function() {
+            if (this.loading) {
+                return;
+            }
+
             if (this.allDone) {
                 this.goodday = true;
                 this._say('Do what you gotta do today, Fuck wit it.');
