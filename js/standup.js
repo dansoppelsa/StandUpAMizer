@@ -11,53 +11,7 @@ Vue.transition('show-card', {
 new Vue({
     el: '#standup',
     data: {
-        projects: [
-            {
-                name: 'Five Four Club',
-                url: 'https://c676132.ssl.cf0.rackcdn.com/fivefoursq-54e7d376db141.png'
-            },
-            {
-                name: 'Juvo',
-                url: 'http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg'
-            },
-            {
-                name: 'Igloo',
-                url: 'http://www.ocgc.gov.on.ca/images/content/userfiles/Igloo-Logo-620x143.jpg',
-                extras: 1
-            },
-            {
-                name: 'GB Metrics',
-                url: 'http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg',
-                extras: 1
-            },
-            {
-                name: 'Clearitie',
-                url: 'https://clearitie.com/wp-content/uploads/2016/03/clearitie-200x200.png',
-                phonetic: 'clarity'
-            },
-            {
-                name: 'Fongo Works',
-                url: 'https://www.fongoworks.com/assets/images/fongo-shadow.png'
-            },
-            {
-                name: 'Home.ca',
-                url: 'https://06b9ff6032ffbd1e7065-e6e732c31d0330a645ee5ace11ddb9de.ssl.cf5.rackcdn.com/img/logo.png'
-            },
-            {
-                name: 'IAS (Polehunter 3000)',
-                url: 'http://www.morrell-middleton.co.uk/wp-content/uploads/logo-placeholder.jpg'
-            },
-            {
-                name: 'Co Pilot',
-                url: 'http://copilotmobileapp.com/images/logo_black.png',
-                extras: 1
-            },
-            {
-                name: 'We Work',
-                url: 'http://berkeleystartupcluster.com/wp-content/uploads/2014/11/wework-logo-1.png',
-                extras: 1
-            }
-        ],
+        projects: null,
         currentProject: null,
         currentIndex: -1,
         last: {
@@ -214,6 +168,14 @@ new Vue({
         _turnUpVolume: function (amount) {
             var newVolume = this.playa.volume + amount;
             this.playa.volume = newVolume > 1 ? 1 : newVolume;
+        },
+        _getProjects: function() {
+            var that = this;
+            $.getJSON('/projects.json')
+                .done(function(response) {
+                    that.projects = _.shuffle(_.shuffle(response.projects));
+                    that.projects.push(that.last);
+                });
         }
     },
     computed: {
@@ -249,12 +211,11 @@ new Vue({
         }
     },
     ready: function() {
-        this.projects = _.shuffle(_.shuffle(this.projects));
-        this.projects.push(this.last);
         this.playa = document.getElementById('playa');
         this.drumroll = document.getElementById('drumroll');
         this._resetVolume();
         this._getVoices();
         this._setKeyListeners();
+        this._getProjects();
     }
 });

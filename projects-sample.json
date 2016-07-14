@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "name": "Client A",
+      "url": "http://www.example.com/client-a-logo.png"
+    },
+    {
+      "name": "Client B",
+      "url": "http://www.example.com/client-b-logo.png",
+      "extras": 1
+    },
+    {
+      "name": "Client C",
+      "url": "http://www.example.com/client-c-logo.png",
+      "phonetic": "client see"
+    }
+  ]
+}
