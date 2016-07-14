@@ -17,7 +17,8 @@ new Vue({
         last: {
             name: 'Vehikl',
             url: 'http://vehikl.com/assets/style-guide/vehikl_avatar.jpg',
-            phonetic: 'Vehicle'
+            phonetic: 'Vehicle',
+            gtfo_music: false
         },
         loading: false,
         goodday: false,
@@ -90,7 +91,7 @@ new Vue({
             this.timerId = window.setInterval(function() {
                 that.time++;
 
-                if (that.time === that.currentTimeLimit) {
+                if (that._shouldStartMusic()) {
                     that._startMusic();
                 }
 
@@ -164,6 +165,13 @@ new Vue({
         },
         _shouldTurnUpVolume: function () {
             return this.timesUp && this.playa.volume < 1 && (this.time % 3 == 0);
+        },
+        _shouldStartMusic: function () {
+            if (this.currentProject.gtfo_music == false) {
+                return false;
+            }
+
+            return this.time === this.currentTimeLimit;
         },
         _turnUpVolume: function (amount) {
             var newVolume = this.playa.volume + amount;
