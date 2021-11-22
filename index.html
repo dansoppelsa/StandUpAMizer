@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="/css/standup.css">
 </head>
 <body>
-<div class="container-fluid" id="standup">
-    <div v-show="! goodday">
+<div class="container-fluid" id="standup" v-cloak>
+    <div v-show="! goodday" v-if="authenticated">
 
         <div id="timer" v-show="currentIndex != -1">
             <h3 v-bind:class="{ 'bold': timesUp, 'red': timesUp }">{{ timerDisplay }}</h3>
@@ -27,7 +27,7 @@
                     <strong>{{ incomplete.length }}</strong> projects left.
                 </p>
                 <div id="loader" v-show="loading">
-                    <img src="https://media-exp1.licdn.com/dms/image/C560BAQFsm9sDqatEQA/company-logo_200_200/0?e=2159024400&v=beta&t=jbcnPxuSy9oh0EKFMz7Rqx-UcBNKehoezRmCzU4-qWA" alt="Vehikl" />
+
                 </div>
                 <div id="projects" v-show="! loading && currentIndex >= 0">
                     <div v-for="project in projects">
@@ -63,13 +63,6 @@
         </div>
         <div class="row" id="controls" v-show="currentIndex != -1">
             <div class="col-sm-12">
-                <!--<button class="btn btn-default btn-lg" id="last" v-bind:disabled="currentIndex <= 0" v-on:click="lastProject()">-->
-                    <!--&lt; Last-->
-                <!--</button>-->
-                <!--<button class="btn btn-primary btn-lg" id="next" v-on:click="nextProject()">-->
-                    <!--<i class="glyphicon glyphicon-play"></i> Next-->
-                <!--</button>-->
-
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-default btn-sm" v-on:click="mute()" v-show="playing">
                     <i class="material-icons">volume_mute</i>

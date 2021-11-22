@@ -29,7 +29,8 @@ new Vue({
         initialVolume: 0.0,
         voices: null,
         playing: false,
-        drumroll: null
+        drumroll: null,
+        authenticated: false,
     },
     methods: {
         nextProject: function() {
@@ -224,7 +225,14 @@ new Vue({
                 this.timeLimit + (this.currentProject.extras * 30);
         }
     },
-    ready: function() {
+    created: function() {
+        if (window.prompt('Please enter password') !== 'lkihev'.split('').reverse().join('')) {
+            return;
+        }
+
+        document.querySelector('#loader').innerHTML = '<img src="https://media-exp1.licdn.com/dms/image/C560BAQFsm9sDqatEQA/company-logo_200_200/0?e=2159024400&v=beta&t=jbcnPxuSy9oh0EKFMz7Rqx-UcBNKehoezRmCzU4-qWA" alt="Vehikl" />'
+
+        this.authenticated = true;
         this.playa = document.getElementById('playa');
         this.drumroll = document.getElementById('drumroll');
         this._resetVolume();
