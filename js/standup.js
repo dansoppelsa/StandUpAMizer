@@ -16,7 +16,7 @@ new Vue({
         currentIndex: -1,
         last: {
             name: 'Vehikl',
-            url: 'http://vehikl.com/assets/style-guide/vehikl_avatar.jpg',
+            url: 'https://media-exp1.licdn.com/dms/image/C560BAQFsm9sDqatEQA/company-logo_200_200/0?e=2159024400&v=beta&t=jbcnPxuSy9oh0EKFMz7Rqx-UcBNKehoezRmCzU4-qWA',
             phonetic: 'Vehicle',
             gtfo_music: false
         },
@@ -178,7 +178,13 @@ new Vue({
             this.playa.volume = newVolume > 1 ? 1 : newVolume;
         },
         _getProjects: function() {
-            var that = this;
+            if (window.projectData) {
+                this.projects = window.projectData
+                this.projects.push(this.last)
+                return;
+            }
+
+            let that = this;
             $.getJSON('/projects.json')
                 .done(function(response) {
                     that.projects = _.shuffle(_.shuffle(response.projects));
