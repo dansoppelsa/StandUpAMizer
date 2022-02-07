@@ -180,7 +180,7 @@ new Vue({
         },
         _getProjects: function() {
             if (window.projectData) {
-                this.projects = window.projectData
+                this.projects = _.shuffle(_.shuffle(window.projectData))
                 this.projects.push(this.last)
                 return;
             }
